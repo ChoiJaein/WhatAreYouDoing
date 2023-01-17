@@ -50,7 +50,7 @@
 <body>
 	<header class="mb-3">
 		<div class="center-block">
-			<img id="previewImg" class="image-360 mainlogo" alt="mainlogo" src="./static/img/mainlogo.png">     
+			<img id="previewImg" class="mainlogo" alt="mainlogo" src="./static/img/mainlogo.png">     
 		</div>
 	</header>
 	
@@ -65,8 +65,8 @@
 		<input type="hidden" name="url" value="${param.url}">
 		<div class="login-box">
 			<div class="d-grid gap-2">
-				<input class="form-control" type="text" id="id_accountId" name="accountId" value="" placeholder="아이디">
-				<input class="form-control" type="password" id="id_password" name="password" value="" placeholder="비밀번호">
+				<input class="form-control" type="text" name="userId" value="" placeholder="아이디">
+				<input class="form-control" type="password" name="userPw" value="" placeholder="비밀번호">
 			</div>
 		</div>
 		
