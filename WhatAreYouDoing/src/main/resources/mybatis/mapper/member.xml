@@ -20,5 +20,27 @@
 		SELECT COUNT(USERID) FROM WYDUSER 
 		WHERE USERID = #{userId}
 	</select>
+	 
+	 <!-- 회원 정보 불러오기 -->
+	<select id="selectAll" resultType="memberVo">
+		SELECT * FROM WYDUSER
+		 WHERE USERID = #{userId}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<select id="userModify" resultType="String">
+	UPDATE WYDUSER
+	   SET USERID = #{userId}
+	   	 , USERPW = #{userPw}
+	   	 , USERNAME = #{userName}
+	   	 , USEREMAIL = #{userEmail}
+	 WHERE USERID = #{userId}
+	 </select>
+	
+	<!-- 회원 정보 삭제 -->
+	<select id="signout" >
+		DELETE FROM WYDUSER
+		 WHERE USERID = #{userId}
+	</select>
 	
 </mapper>

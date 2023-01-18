@@ -32,5 +32,25 @@ public class MemberDAO {
 		return result;
 	}
 
+	// 전체 회원 정보 가져오기
+	public MemberVO selectAll(String userId) {
+		logger.info("selectAll(userId={})", userId);
+		MemberVO data = sqlSession.selectOne("memberMapper.selectAll", userId);
+		return data;
+	}
+
+	// 회원 정보 수정
+	public boolean userModify(MemberVO vo) {
+		logger.info("userModify(vo={})", vo);
+		int res = sqlSession.update("memberMapper.userModify", vo);
+		return res == 1 ? true : false;
+	}
+
+	public boolean signout(MemberVO vo) {
+		logger.info("signout(vo={})", vo);
+		int res = sqlSession.delete("memberMapper.signout", vo);
+		return res == 1 ? true : false;
+	}
+
 
 }

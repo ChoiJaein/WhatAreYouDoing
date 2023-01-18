@@ -26,6 +26,26 @@ public class MemberService {
 		int result = dao.idOverlap(vo);
 		return result;
 	}
+	
+	// 전체 회원 정보 가져오기
+	public MemberVO getAll(String userId) {
+		logger.info("getAll(userId={})", userId);
+		MemberVO data = dao.selectAll(userId);
+		return data;
+	}
+
+	// 회원 정보 수정
+	public boolean userModify(MemberVO vo) {
+		logger.info("userModify(vo={})", vo);
+		boolean result = dao.userModify(vo);
+		return result;
+	}
+
+	public boolean signout(MemberVO vo) {
+		logger.info("signout(vo={})", vo);
+		boolean result = dao.signout(vo);
+		return result;
+	}
 
 
 }

@@ -33,7 +33,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.myweb.myhome.login.model.LoginDTO;
 import com.myweb.myhome.member.service.MemberService;
 import com.myweb.myhome.member.vo.MemberVO;
 
@@ -94,8 +94,87 @@ public class MemberController {
 		
 		return json.toJSONString();
 	}
-//	
-//	// 회원정보 수정
+
+	
+	// 회원정보 수정
+	
+	@GetMapping(value="/modify")
+	public String userModify(HttpServletRequest request, Model model
+			, LoginDTO loginDto) {
+		logger.info("get modify(model={}, loginDto={})", model, loginDto);
+		
+		HttpSession session = request.getSession();
+		loginDto = (LoginDTO) session.getAttribute("loginData");
+		
+		String userId = loginDto.getUserId();
+		
+		MemberVO data = service.getAll(userId);
+		
+		model.addAttribute("data", data);
+
+		return "login/userModify";
+	}
+	
+	
+	@PostMapping(value="/modify")
+	public String userModify(Model model, HttpServletRequest request
+			, @ModelAttribute MemberVO vo, @SessionAttribute("loginData") LoginDTO logDto) {
+		logger.info("post userModify(Model={}, MemberVO={})", model, vo);
+		boolean result = service.userModify(vo);
+		
+		String id = logDto.getUserId();
+		
+		if(result) {
+			model.addAttribute("msg", "수정이 완료되었습니다.");
+			model.addAttribute("url", "/myhome");
+			return "alert";
+		} else {
+			model.addAttribute("msg", "수정을 실패하였습니다. 다시 시도해주세요.");
+			model.addAttribute("url", "/myhome/modify");
+			return "alert";
+			}
+		
+	}
+	
+	
+	// 회원 탈퇴
+	@GetMapping(value="/signout")
+	public String signout(HttpServletRequest request, Model model, LoginDTO loginDto) {
+		logger.info("get signout(model={}, LoginDTO={})", model, loginDto);
+		
+		HttpSession session = request.getSession();
+		loginDto = (LoginDTO) session.getAttribute("loginData");
+		
+		String userId = loginDto.getUserId();
+		
+		MemberVO data = service.getAll(userId);
+		
+		model.addAttribute("data", data);
+		
+		return "/login/signout";
+	}
+	
+	@PostMapping(value="/signout")
+	public String signout(Model model, @ModelAttribute MemberVO vo, HttpSession session) {
+		logger.info("post signout");
+		
+		boolean result = service.signout(vo);
+		
+		if(result) {
+			model.addAttribute("msg", "탈퇴가 완료되었습니다.");
+			session.invalidate();
+			model.addAttribute("url", "/myhome/login");
+			return "alert";
+		} else {
+			model.addAttribute("msg", "탈퇴를 실패하였습니다. 다시 시도해주세요.");
+			model.addAttribute("url", "/myhome/signout");
+			return "alert";
+		}
+		
+	}
+	
+	
+	
 //	@GetMapping(value="/myinfo/modify")
 //	public String userModify(HttpServletRequest request, Model model, AccountDTO accountDto) {
 //		logger.info("get modify(HttpServletRequest={}, model={}, accountDto={})", request, model, accountDto);
