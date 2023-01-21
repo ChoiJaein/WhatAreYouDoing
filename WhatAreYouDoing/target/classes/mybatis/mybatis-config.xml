@@ -8,6 +8,7 @@
 	<typeAliases>
 		<typeAlias type="com.myweb.myhome.login.model.LoginDTO" alias="loginDto" />
 		<typeAlias type="com.myweb.myhome.member.vo.MemberVO" alias="memberVo" />
+		<typeAlias type="com.myweb.myhome.post.model.PostDTO" alias="postDto" />
 		
 	</typeAliases>  
 </configuration>

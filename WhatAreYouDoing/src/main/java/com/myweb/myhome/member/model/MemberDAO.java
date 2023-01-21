@@ -16,8 +16,6 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-//	private String mapper = "boardMapper.%s";
-
 	// 회원가입
 	public int register(MemberVO vo) {
 		logger.info("register(vo={})", vo);
