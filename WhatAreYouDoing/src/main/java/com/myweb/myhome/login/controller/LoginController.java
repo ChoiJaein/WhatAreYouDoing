@@ -62,7 +62,7 @@ public class LoginController {
 		mav.setViewName("login");
 		
 		if(result) {
-			return "/home";
+			return "redirect:/";
 		} else {
 			return"login/login";
 		}
@@ -76,7 +76,7 @@ public class LoginController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		
-		return "login/login";
+		return "redirect:/login";
 	}
 	
 	

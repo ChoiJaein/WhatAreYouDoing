@@ -72,7 +72,7 @@
 		
 		<div class="text-button">
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end">
-				<div onclick="location.href='./login/findIdPw'" style="cursor:pointer">아이디/비밀번호 찾기</div>
+				<div onclick="location.href='./findIdPw'" style="cursor:pointer">아이디/비밀번호 찾기</div>
 				<div onclick="location.href='./register'" style="cursor:pointer">회원가입</div>
 			</div>
 		</div>
