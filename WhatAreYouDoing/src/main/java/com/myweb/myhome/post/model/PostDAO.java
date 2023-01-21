@@ -51,6 +51,14 @@ public class PostDAO {
 		PostDTO res = session.selectOne(mapperId, postId);
 		return res;
 	}
+
+	// 게시글 수정
+	public boolean updateData(PostDTO data) {
+		logger.info("updateData(data={})", data);
+		String mapperId = String.format(mapper, "updateData");
+		int res = session.update(mapperId, data);
+		return res == 1 ? true : false;
+	}
 	
 		
 	

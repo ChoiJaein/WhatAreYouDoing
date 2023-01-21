@@ -3,7 +3,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="postMapper">
-  <select id="selectAll" resultType="postDto">
+  
+  	<select id="selectAll" resultType="postDto">
 		SELECT * FROM WYDPOST
 		WHERE USERID = #{userId}
 	</select>
@@ -11,17 +12,25 @@
 	<select id="getNextSeq" resultType="_int">
 		SELECT POST_SEQ.NEXTVAL FROM DUAL
 	</select>
+	
 	<insert id="insertData" parameterType="postDto">
 		INSERT INTO WYDPOST(POSTID, USERID, POSTTITLE, POSTCONTENT, POSTDATE)
 			VALUES(#{postId}, #{userId}, #{postTitle}, #{postContent}, SYSDATE)
 	</insert>
+	
 	<select id="selectData" resultType="postDto">
 		SELECT POSTID, POSTTITLE, POSTCONTENT
 		     , POSTDATE
-		  FROM WYDPOST P
+		  FROM WYDPOST
 		 WHERE POSTID = #{postId}
 	</select>
   
+  	<update id="updateData" parameterType="postDto">
+		UPDATE WYDPOST
+		   SET POSTTITLE = #{postTitle}
+		     , POSTCONTENT = #{postContent}
+		 WHERE POSTID = #{postId}
+	</update>
   
 <!--  <select id="selectLogin" parameterType="loginDto" resultType="loginDto">
 	     SELECT * FROM WYDUSER

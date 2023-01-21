@@ -46,6 +46,12 @@ public class PostService {
 		PostDTO data = dao.selectData(postId);
 		return data;
 	}
+
+	public boolean modify(PostDTO data) {
+		logger.info("modify(data={})", data);
+		boolean result = dao.updateData(data);
+		return result;
+	}
 	
 	
 }

@@ -100,4 +100,41 @@ public class HomeController {
 		}
 	}
 	
+	@GetMapping(value="/postMod")
+	public String modify(Model model
+			, @RequestParam int postId) {
+		
+		logger.info("Get modify(postId={})", postId);
+		
+		PostDTO data = service.getData(postId);	
+		if(data != null) {	
+			model.addAttribute("data", data);
+			return "post/modify";	
+		} else {
+		model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
+		return "error/noExists";
+		}
+	}
+	
+	@PostMapping(value="/postMod")	
+	public String modify(Model model
+			, @ModelAttribute PostDTO postDto) {	
+		logger.info("Post Modify(postDto={})", postDto);
+		
+		PostDTO data = service.getData(postDto.getPostId());		
+		
+		if(data != null) {
+			data.setPostTitle(postDto.getPostTitle());
+			data.setPostContent(postDto.getPostContent());
+			boolean result = service.modify(data);
+			if(result) {
+				return "redirect:/detail?postId=" + data.getPostId();
+			} else {	
+				return modify(model, postDto.getPostId());
+			} 
+		} else {					
+			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
+			return "error/noExists";
+		}
+	}
 }
