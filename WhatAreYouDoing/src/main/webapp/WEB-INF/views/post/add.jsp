@@ -73,9 +73,10 @@
 			filebrowserUploadMethod: 'form'
 		});
 	</script> --%>
+	<c:url var="upload" value="/upload/image" />
 	<script type="text/javascript">
 		CKEDITOR.replace("postContent", {
-			filebrowserUploadUrl: "/upload/image?type=image"	// ck에디터가 ajax로 "" 안의 주소로 이미지를 보내줌. 이 주소로 보낸 이미지를 받아서 저장처리 해주면 됨.
+			filebrowserUploadUrl: "${upload}?type=image"	// ck에디터가 ajax로 "" 안의 주소로 이미지를 보내줌. 이 주소로 보낸 이미지를 받아서 저장처리 해주면 됨.
 		})
 	</script>
 </body>
