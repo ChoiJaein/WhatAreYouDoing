@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${staticUrl}/css/finalcss.css">
+<%-- <link rel="stylesheet" type="text/css" href="${staticUrl}/css/finalcss.css"> --%>
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
 <!-- 결제api 테스트 -->

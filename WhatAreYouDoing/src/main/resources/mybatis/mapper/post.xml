@@ -31,24 +31,10 @@
 		     , POSTCONTENT = #{postContent}
 		 WHERE POSTID = #{postId}
 	</update>
+	
+	<delete id="deleteData">
+		DELETE FROM WYDPOST
+		 WHERE POSTID = #{postId}
+	</delete>
   
-<!--  <select id="selectLogin" parameterType="loginDto" resultType="loginDto">
-	     SELECT * FROM WYDUSER
-		 WHERE USERID = #{userId}
-	       AND  USERPW = #{userPw}
- </select> -->
-<!--  아이디 찾기
- <select id="find_id" parameterType="accountDto" resultType="accountDto">
-		SELECT ACCOUNTID
-		FROM ACCOUNT 
-		WHERE EMAIL = #{email}
- </select>
-
- 비밀번호 찾기
-  <select id="find_pw" parameterType="accountDto" resultType="accountDto">
-		SELECT * FROM ACCOUNT                              
-		WHERE ACCOUNTID = #{accountid} 
-		AND EMAIL = #{email}
- </select>  
- -->
   </mapper>

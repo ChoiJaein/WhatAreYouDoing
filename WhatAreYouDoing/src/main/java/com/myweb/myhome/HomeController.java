@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myweb.myhome.common.util.Paging;
@@ -111,7 +113,7 @@ public class HomeController {
 			model.addAttribute("data", data);
 			return "post/modify";	
 		} else {
-		model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
+		model.addAttribute("error", "해당 게시글이 존재하지 않습니다.");
 		return "error/noExists";
 		}
 	}
@@ -133,8 +135,38 @@ public class HomeController {
 				return modify(model, postDto.getPostId());
 			} 
 		} else {					
-			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
+			model.addAttribute("error", "해당 게시글이 존재하지 않습니다.");
 			return "error/noExists";
 		}
 	}
+	
+	@PostMapping(value="/delete", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String delete(@RequestParam int postId) {
+		logger.info("Post delete(postId={})", postId);
+		PostDTO data = service.getData(postId);
+		JSONObject json = new JSONObject();
+		
+		if(data == null) {
+			// 삭제할 데이터 없음
+			json.put("code", "notExists");
+			json.put("message", "이미 삭제 된 데이터 입니다.");
+		} else {
+			boolean result = service.remove(data);
+			logger.info("Post delete Result(result={})", result);
+			if(result) {
+				json.put("code", "success");
+				System.out.println(json);
+				json.put("message", "삭제가 완료되었습니다.");
+			} else {
+				json.put("code", "fail");
+				System.out.println(json);
+				json.put("message", "삭제 작업 중 문제가 발생하였습니다.");
+			}
+		}
+		System.out.println(json.toJSONString());
+		return json.toJSONString();
+	}
+	
+	
 }

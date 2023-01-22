@@ -7,11 +7,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>${data.postTitle}</title>
-	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
+	<title>${data.postTitle}
+	</title>
+	<%@ include file="../module/head.jsp" %>
 </head>
 
 <body>
@@ -113,7 +111,7 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						해당 데이터를 삭제하겠습니까?
+						이 게시물을 삭제하시겠습니까?
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" onclick="deleteBoard(${data.postId})">확인</button>	<!-- 확인 누르면 deleteBoard메소드(220번째 줄)가 실행됨. 인자로 게시글 번호(data.id)전달. -->
@@ -196,20 +194,18 @@
 		} */
 		function deleteBoard(postId) {
 			$.ajax({						// ajax로
-				url: "${boardUrl}/delete",	// url주소 요청. 53번째줄에서 c:url로 contextPath+/board를 boardUrl에 넣어놓았기 때문에 그대로 사용.
+				url: "/delete",	// url주소 요청. 53번째줄에서 c:url로 contextPath+/board를 boardUrl에 넣어놓았기 때문에 그대로 사용.
 				type: "post",				// 메소드는 post
 				data: {						// 전달하는 데이터는 postId
-					id: postId	
+					 postId: ${data.postId}	
 				},
 				dataType: "json",
 				success: function(data) {
 					if(data.code === "success") {	// 삭제가 완료되면
 						alert("삭제 완료");			// 알람으로 삭제 완료 띄움
-						location.href = "${boardUrl}";
-					} else if(data.code === "permissionError") {	// 권한이 없으면
-						alert("권한이 오류");
+						location.href="/";
 					} else if(data.code === "notExists") {		// 해당 데이터(=글)가 존재하지 않으면
-						alert("이미 삭제되었습니다.")
+						alert("이미 삭제되었습니다.");
 					}
 				}
 			});

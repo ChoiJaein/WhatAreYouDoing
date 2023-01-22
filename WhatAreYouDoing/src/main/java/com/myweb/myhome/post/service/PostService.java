@@ -44,12 +44,21 @@ public class PostService {
 	public PostDTO getData(int postId) {
 		logger.info("getData(postId={})", postId);
 		PostDTO data = dao.selectData(postId);
+		logger.info("getData Result(data={})", data);
 		return data;
 	}
 
 	public boolean modify(PostDTO data) {
 		logger.info("modify(data={})", data);
 		boolean result = dao.updateData(data);
+		return result;
+	}
+
+	public boolean remove(PostDTO data) {
+		logger.info("remove(data={})", data);
+		
+		boolean result = dao.deleteData(data);
+		
 		return result;
 	}
 	

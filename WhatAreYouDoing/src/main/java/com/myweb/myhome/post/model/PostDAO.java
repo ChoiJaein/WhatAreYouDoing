@@ -49,6 +49,7 @@ public class PostDAO {
 		logger.info("selectData(postId={})", postId);
 		String mapperId = String.format(mapper, "selectData");
 		PostDTO res = session.selectOne(mapperId, postId);
+		logger.info("selectData Result(res={})", res);
 		return res;
 	}
 
@@ -58,6 +59,14 @@ public class PostDAO {
 		String mapperId = String.format(mapper, "updateData");
 		int res = session.update(mapperId, data);
 		return res == 1 ? true : false;
+	}
+
+	// 게시글 삭제
+	public boolean deleteData(PostDTO data) {
+		logger.info("deleteData(data={})", data);
+		String mapperId = String.format(mapper, "deleteData");
+		int res = session.delete(mapperId, data);
+		return res >= 0 ? true : false;
 	}
 	
 		
