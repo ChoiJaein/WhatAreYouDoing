@@ -2,6 +2,7 @@ package com.myweb.myhome;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -34,12 +35,19 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@GetMapping(value="/")
-	public String getList(Model model, HttpSession session
+	public String getList(HttpServletRequest request, Model model, HttpSession session, LoginDTO loginDto
 			, @RequestParam(defaultValue="1", required=false) int page
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
 		logger.info("GET Main page getList");
 		
-		List datas = service.getAll();
+		session = request.getSession();
+		loginDto = (LoginDTO) session.getAttribute("loginData");
+		String userId = loginDto.getUserId();
+		logger.info("getList(userId={})", userId);
+		
+		List datas = service.getAll(userId);
+		System.out.println(datas);
+		
 		
 		if(session.getAttribute("pageCount") == null) {
 			session.setAttribute("pageCount", 5);

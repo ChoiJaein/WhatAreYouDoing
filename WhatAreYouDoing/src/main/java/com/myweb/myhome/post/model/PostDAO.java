@@ -19,10 +19,10 @@ public class PostDAO {
 	private String mapper = "postMapper.%s";
 		
 	// 메인페이지. 전체 게시글 목록
-	public List<PostDTO> selectAll() {
-		logger.info("all post list DAO");
+	public List<PostDTO> selectAll(String userId) {
+		logger.info("selectAll(userId={})", userId);
 		String mapperId = String.format(mapper, "selectAll");
-		List<PostDTO> res = session.selectList(mapperId);
+		List<PostDTO> res = session.selectList(mapperId, userId);
 		return res;
 	}
 

@@ -19,9 +19,9 @@ public class PostService {
 	private PostDAO dao;
 	
 	// 메인페이지. 전체 게시글 목록
-	public List<PostDTO> getAll() {
-		logger.info("all post list Service");
-		List<PostDTO> datas = dao.selectAll();
+	public List<PostDTO> getAll(String userId) {
+		logger.info("getAll(userId={})", userId);
+		List<PostDTO> datas = dao.selectAll(userId);
 		return datas;
 	}
 
