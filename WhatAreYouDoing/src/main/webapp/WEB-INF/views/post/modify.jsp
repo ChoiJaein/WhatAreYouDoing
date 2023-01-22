@@ -9,6 +9,8 @@
 	<meta charset="UTF-8">
 	<title>게시글 수정 - ${data.postTitle}</title>
 	<%@ include file="../module/head.jsp" %>
+	<c:url var="ckeditor" value="/static/ckeditor" />
+	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
@@ -61,5 +63,10 @@
 		</div>
 	</section>
 	<footer></footer>
+	<script type="text/javascript">
+		CKEDITOR.replace("postContent", {
+			filebrowserUploadUrl: "/upload/image?type=image"
+		})
+	</script>
 </body>
 </html>

@@ -9,21 +9,21 @@
 	<meta charset="UTF-8">
 	<title>게시글 등록</title>
 	<%@ include file="../module/head.jsp" %>
-	<%-- <c:url var="ckeditor" value="/static/ckeditor" />
-	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script> --%>
+	<c:url var="ckeditor" value="/static/ckeditor" />
+	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
 </head>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	function formCheck(form) {
-		if(form.postTitle.value === undefined || form.postTitle.value.trim() === "") {
-			var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
+		if(form.postTitle.value === undefined || form.postTitle.value.trim() === "") {			/* title값(title.value)이 비어있으면(title.value.trim() === "") */
+			var modal = new bootstrap.Modal(document.getElementById("errorModal"), {	/* title 채워라는 에러메세지가 뜨게 함 */
 				keyboard: false
 			});
 			modal.show();
 			return;
-		}
-		form.submit();
+		}						/* title에 적절한 값이 들어있다면  */
+		form.submit();			/* 저장요청할 수 있게 전송(submit)해라. 이때 전송은 "/board/modify"로 하고 메소드는 "post"로 함. -> BoardController의 @PostMapping으로 이동*/
 	}
-</script> -->
+</script>
 <body>
 	<header></header>
 	<section class="container">
@@ -31,11 +31,11 @@
 			<c:url var="boardAddUrl" value="/add" />
 			<form action="${boardAddUrl}" method="post">
 				<div class="mb-3">
-					<input class="form-control" type="text" name="postTitle" value="" placeholder="제목을 입력하세요.">
+					<input class="form-control" type="text" name="postTitle" value="" placeholder="제목을 입력하세요." required>
 				</div>
 				<div class="mb-3">
 					<textarea class="form-control" name="postContent" value="" rows="8"
-						placeholder="내용을 입력하세요."></textarea>
+						placeholder="내용을 입력하세요." required></textarea>
 				</div>
 				<div class="mb-3">
 					<input class="form-control" type="file" name="fileUpload" >
@@ -73,5 +73,10 @@
 			filebrowserUploadMethod: 'form'
 		});
 	</script> --%>
+	<script type="text/javascript">
+		CKEDITOR.replace("postContent", {
+			filebrowserUploadUrl: "/upload/image?type=image"	// ck에디터가 ajax로 "" 안의 주소로 이미지를 보내줌. 이 주소로 보낸 이미지를 받아서 저장처리 해주면 됨.
+		})
+	</script>
 </body>
 </html>

@@ -35,11 +35,11 @@
    <div class="container-fluid">
  		<c:if test="${empty sessionScope.loginData}">
 			<a class="navbar-brand" href="#">
-				<img class="logo" src="./static/img/wydlogo.png" onclick="location.href='/myhome/login'" alt="" height="75" style="cursor: pointer;">
+				<img class="logo" src="./static/img/wydlogo.png" onclick="location.href='/login'" alt="" height="75" style="cursor: pointer;">
 			</a>
  		</c:if>
 		<c:if test="${not empty sessionScope.loginData}">
-			<img class="logo" src="./static/img/wydlogo.png" onclick="location.href='/myhome'" alt="" height="75" style="cursor: pointer;">
+			<img class="logo" src="./static/img/wydlogo.png" onclick="location.href='/'" alt="" height="75" style="cursor: pointer;">
 			<div class="logout_btn" onclick="location.href='./logout'" style="cursor:pointer">로그아웃</div>
 		</c:if>
 	</div>
