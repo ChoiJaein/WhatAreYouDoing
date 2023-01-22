@@ -36,6 +36,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myweb.myhome.login.model.LoginDTO;
 import com.myweb.myhome.member.service.MemberService;
 import com.myweb.myhome.member.vo.MemberVO;
+import com.myweb.myhome.upload.model.PhotoUploadDTO;
+import com.myweb.myhome.upload.service.PhotoUploadService;
 
 @Controller
 public class MemberController {
@@ -48,8 +50,8 @@ public class MemberController {
 //	@Autowired
 //	private InfoService photoService;
 	
-//	@Autowired
-//	private PhotoUploadService photoUploadService;
+	@Autowired
+	private PhotoUploadService photoUploadService;
 	
 	// 회원 가입
 	@GetMapping(value="/register")
@@ -59,8 +61,36 @@ public class MemberController {
 	}
 	
 	@PostMapping(value="/register")
-	public String register(MemberVO vo, RedirectAttributes ra) {
-		logger.info("Post register");
+	public String register(Model model, RedirectAttributes ra
+			, HttpServletRequest request
+			, @ModelAttribute MemberVO vo
+			, @RequestParam("photoUpload") MultipartFile[] files) {
+		logger.info("post register(Model={}, MemberVO={})", model, vo);
+		
+		
+		
+		String userId = vo.getUserId();
+		System.out.println(userId);
+		
+		for(MultipartFile file: files) {
+			String location = request.getServletContext().getRealPath("/resources/img/profile");
+			String url = "/static/img/profile";
+			PhotoUploadDTO fileData = new PhotoUploadDTO(userId, location, url);
+			logger.info("check fileData(fileData={})", fileData);
+			
+			try {
+				int fileResult = photoUploadService.profileupload(file, fileData);
+				if(fileResult == -1) {
+					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
+					System.out.println("업로드 수량 에러");
+					return "login/register";
+				}
+			} catch(Exception e) {
+				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
+				System.out.println("예상치 못한 에러");
+				return "login/register";
+			}
+		}
 		
 		int result = service.idOverlap(vo);
 		
@@ -118,11 +148,11 @@ public class MemberController {
 	
 	@PostMapping(value="/modify")
 	public String userModify(Model model, HttpServletRequest request
-			, @ModelAttribute MemberVO vo, @SessionAttribute("loginData") LoginDTO logDto) {
+			, @ModelAttribute MemberVO vo, @SessionAttribute("loginData") LoginDTO loginDto) {
 		logger.info("post userModify(Model={}, MemberVO={})", model, vo);
 		boolean result = service.userModify(vo);
 		
-		String id = logDto.getUserId();
+		String id = loginDto.getUserId();
 		
 		if(result) {
 			model.addAttribute("msg", "수정이 완료되었습니다.");

@@ -18,7 +18,17 @@
 		padding:20px 30px;
 		width:460px;
 		}
+		
+	.input-file-button{
+	  padding: 4px 15px;
+	  background-color:#58636A;
+	  border-radius: 4px;
+	  color: white;
+	  cursor: pointer;
+	}
+		
 	</style>
+	
 	
 </head>
 
@@ -72,11 +82,22 @@
 	</header>
 	<c:url var="mainUrl" value="." />
 	<section class="container" style="width: 480px;">
-		<c:url var="loginUrl" value="/register" />
-		<form action="${loginUrl}" name="register" method="post">
+		<c:url var="registerUrl" value="/register" />
+		<form id="ajaxform" action="${registerUrl}" name="register" method="post" enctype="multipart/form-data">
 			<br><br>
 			<input type="hidden" name="url" value="${param.url}">
+			
 			<div class="register-box">
+			
+				<div class="text-center">
+				<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="<%=request.getContextPath() %>${photo.url}" 
+										width="250" height="250">
+				</div>
+				<div class="text-center">
+					<label class="input-file-button mb-4" for="imgSelect">프로필사진 변경</label>
+					<input id="imgSelect" name="photoUpload" type="file" onchange="preview()" style ="display:none;">
+				</div> 
+				
 	 			<div class="form-floating mb-2">
 					<input class="form-control" type="text" id="id_userId" name="userId" value="" placeholder="아이디를 입력하세요" required>
 					<label for="id_userId">아이디</label>
@@ -108,13 +129,49 @@
 			<br><br>
 			
 			<div class="mb-2 text-end">
-				<button class="btn btn-outline-primary bluebtn" type="submit" id="button_register" disabled>가입하기</button>
+				<button class="btn btn-outline-secondary" type="submit" id="button_register" disabled>가입하기</button>
 			</div>
 			
 			<br>
-			
 		</form>
 	</section>
+	<script type="text/javascript">
+	
+	function preview() { 
+		previewImg.src=URL.createObjectURL(event.target.files[0]); 
+	}
+	
+	
+	<!--이미지 업로드 미리보기-->
+	function showImagePreview(e){
+		 var file = e.target.files[0];
+		 var imgUrl = URL.createObjectURL(file);
+		 previewImg.src = imgUrl;	 
+	}
+
+
+	<!--이미지 업로드 Ajax-->
+	 function ajaxImageUpload(e){
+		 var file  =  e.target.files[0];
+		 var fData = new FormData();
+		 fData.append("uploadImage", file, file.name);
+		 
+		 $.ajax({
+			 type:"post",
+			 enctype:"multipart/form-data",
+			 url:"/ajax/imageUpload",
+			 data:fData,
+			 processData:false,
+		     contentType:false,
+		     success:function(data, status){
+		    	 previewImg.src = data.src;
+		     }
+		  
+		 });
+	 } 
+	</script>
+	
+
 
 
 </body>
