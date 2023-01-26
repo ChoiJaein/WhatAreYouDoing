@@ -1,6 +1,7 @@
 package com.myweb.myhome.post.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,6 +61,12 @@ public class PostService {
 		boolean result = dao.deleteData(data);
 		
 		return result;
+	}
+
+	public List<PostDTO> postSearch(Map<String, String> map) {
+		logger.info("postSearch(map={})", map);
+		List<PostDTO> datas = dao.postSearch(map);
+		return datas;
 	}
 	
 	

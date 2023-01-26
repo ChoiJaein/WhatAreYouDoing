@@ -34,74 +34,7 @@
 			</div>
 		</div>
 
-		<%-- <nav>
-			<div>
-				<ul class="pagination justify-content-center">
-					<c:url var="boardDetailUrl" value="/board/detail">
-						<c:param name="id">${data.id}</c:param>
-					</c:url>
-					<c:if test="${commentPage.hasPrevPage()}">
-						<li class="page-item">
-							<a class="page-link" href="${boardDetailUrl}&page=${commentPage.prevPageNumber}">Prev</a>
-						</li>
-					</c:if>
-					<c:forEach items="${commentPage.getPageNumberList(commentPage.currentPageNumber - 2, commentPage.currentPageNumber + 2)}" var="num">
-						<li class="page-item ${commentPage.currentPageNumber eq num ? 'active' : ''}">
-							<a class="page-link" href="${boardDetailUrl}&page=${num}">${num}</a>
-						</li>
-					</c:forEach>
-					<c:if test="${commentPage.hasNextPage()}">
-						<li class="page-item">
-							<a class="page-link" href="${boardDetailUrl}&page=${commentPage.nextPageNumber}">Next</a>
-						</li>
-					</c:if>
-				</ul>
-			</div>
-		</nav> --%>
 
-		<%-- <div class="mt-3 mb-3">
-			<c:forEach items="${commentPage.pageData}" var="comment">
-				<div class="mb-1">
-					<div class="card border-light">
-						<div class="card-header">
-							<div class="d-flex justify-content-between">
-								<span><small>${comment.empName}</small></span>
-								<span><small>${comment.createDate}</small></span>
-							</div>
-						</div>
-						<div class="card-body">
-							<input type="hidden" value="${comment.id}">
-							<c:choose>
-								<c:when test="${comment.isDeleted()}">
-									<p class="text-muted">삭제된 댓글 입니다.</p>
-								</c:when>
-								<c:otherwise>
-									<c:set var="newLine" value="<%= \"\n\" %>" />
-									<p class="card-text">${fn:replace(comment.content, newLine, '<br>')}</p>
-								</c:otherwise>
-							</c:choose>
-							<c:if test="${sessionScope.loginData.empId eq comment.empId}">
-								<c:if test="${not comment.isDeleted()}">
-									<div class="text-end">
-										<button class="btn btn-sm btn-outline-dark" type="button" onclick="changeEdit(this);">수정</button>
-										<button class="btn btn-sm btn-outline-dark" type="button" onclick="commentDelete(this, ${comment.id})">삭제</button>
-									</div>
-								</c:if>
-							</c:if>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		 	<div class="mb-1">								<!-- 댓글 추가  -->
-				<form action="${boardUrl}/comment/add" method="post">
-					<input type="hidden" name="bid" value="${data.id}">
-					<div class="input-group">
-						<textarea class="form-control" name="content" rows="2"></textarea>
-						<button class="btn btn-outline-dark" type="button" onclick="formCheck(this.form);">등록</button>
-					</div>
-				</form>
-			</div>
-		</div> --%>
 					<!-- 57번줄에서 삭제버튼(게시글 상세화면의 삭제버튼) 누르면 이 모달이 실행됨. -->
 		<div class="modal fade" id="removeModal" tabindex="-1" aria-hidden="true">	
 			<div class="modal-dialog">

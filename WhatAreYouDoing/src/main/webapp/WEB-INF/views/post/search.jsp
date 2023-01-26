@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>메인페이지</title>
-	<%@ include file="./module/head.jsp" %>
+	<%@ include file="../module/head.jsp" %>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	
 	<style type="text/css">
@@ -60,7 +60,7 @@
 </head>
 <body>
 	<header>
-		<%@ include file="./module/navigation.jsp" %>
+		<%@ include file="../module/navigation.jsp" %>
 	</header>
 	<br><br><br>
 	

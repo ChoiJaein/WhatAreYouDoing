@@ -37,4 +37,11 @@
 		 WHERE POSTID = #{postId}
 	</delete>
   
+  	<select id="postSearch" resultType="postDto" parameterType="Map">
+		SELECT * FROM WYDPOST
+		 WHERE USERID = #{userId}
+		 AND POSTCONTENT LIKE '%' || #{keyword} || '%'
+		  OR POSTTITLE LIKE '%' || #{keyword} || '%'
+	</select>
+  
   </mapper>

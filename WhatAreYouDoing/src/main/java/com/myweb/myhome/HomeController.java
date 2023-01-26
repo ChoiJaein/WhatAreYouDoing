@@ -1,6 +1,8 @@
 package com.myweb.myhome;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -176,5 +178,42 @@ public class HomeController {
 		return json.toJSONString();
 	}
 	
+	
+	@GetMapping(value="/postList_search")
+	public String postSearch(HttpServletRequest request, Model model, HttpSession session, LoginDTO loginDto
+			, @RequestParam(defaultValue="1", required=false) int page
+			, @RequestParam(defaultValue="0", required=false) int pageCount
+			, @RequestParam("keyword") String keyword) {
+		logger.info("GET postSearch");
+		Map<String, String> map = new HashMap<String, String>();
+		
+		session = request.getSession();
+		loginDto = (LoginDTO) session.getAttribute("loginData");
+		String userId = loginDto.getUserId();
+		map.put("userId", userId);
+		map.put("keyword", keyword);
+		logger.info("getUserId(userId={})", userId);
+		logger.info("getKeyword(keyword={})", keyword);
+		logger.info("getMap(map={})", map);
+		
+		
+		List datas = service.postSearch(map);
+		System.out.println(datas);
+		
+		if(session.getAttribute("pageCount") == null) {
+			session.setAttribute("pageCount", 5);
+		}
+		if(pageCount > 0 ) {
+			session.setAttribute("pageCount", pageCount);
+		}
+		
+		pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+		Paging paging = new Paging(datas, page, pageCount);	// datas, 첫번째 페이지, 한 페이지에 다섯개씩
+		
+		model.addAttribute("datas", paging.getPageData());
+		model.addAttribute("pageData", paging);
+		
+		return "post/search";
+	}
 	
 }

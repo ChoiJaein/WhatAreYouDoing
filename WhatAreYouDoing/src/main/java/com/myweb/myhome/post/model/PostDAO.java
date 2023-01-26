@@ -1,6 +1,7 @@
 package com.myweb.myhome.post.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -67,6 +68,13 @@ public class PostDAO {
 		String mapperId = String.format(mapper, "deleteData");
 		int res = session.delete(mapperId, data);
 		return res >= 0 ? true : false;
+	}
+
+	public List<PostDTO> postSearch(Map<String, String> map) {
+		logger.info("postSearch(map={})", map);
+		String mapperId = String.format(mapper, "postSearch");
+		List<PostDTO> res = session.selectList(mapperId, map);
+		return res;
 	}
 	
 		
