@@ -14,13 +14,6 @@
 <%@ include file="../module/head.jsp" %>
  
 <style type="text/css">
-	 .input-file-button{
-	  padding: 6px 25px;
-	  background-color:#0d6efd;
-	  border-radius: 4px;
-	  color: white;
-	  cursor: pointer;
-	}
 	.modify-box {
 	margin:auto;
 	background-color: rgba(250, 237, 197, 0.5);
@@ -33,6 +26,14 @@
 	text-align: center;
 	color: gray;
 	text-shadow: <50> <50> <50> <red>;
+	}
+	
+	.input-file-button{
+	  padding: 4px 15px;
+	  background-color:#58636A;
+	  border-radius: 4px;
+	  color: white;
+	  cursor: pointer;
 	}
 </style>
 </head>
@@ -48,37 +49,21 @@
   
 	<c:url var="myinfoModify" value="/modify"/>
 	<form id="ajaxform" class="large-form" action="${myinfoModify}" method="post" enctype="multipart/form-data">
- <%--   <div class="col-sm-4 text-center">
-    <div class="mb-4 mt-4">
-       <div style="background-color:rgba(233,236,239)">
-     
-          
-<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="<%=request.getContextPath() %>${photo.url}" 
-                    width="250" height="250">      
-     
 
-			<div class="image-form left">
-				<img id="previewImg" class="image-360" alt="여기에는 증명 사진이 배치됩니다." src="${imagePath}">
-				<br>
-			</div> 
 
-<!--닉네임 value값입력 -->
-          <div>
-            <input class="text-center mb-3" type="text" name="name" value="${data.name}" size="17">
-          </div>
-
-           <div>
-           <label class="input-file-button mb-4" for="imgSelect">프로필사진 변경</label>
-          <input id="imgSelect" name="photoUpload" type="file" onchange="preview()" style ="display:none;">
-          </div> 
-          
-       </div>
-    </div>
-  </div> --%>
 	<br><br>
 	<h1>회원정보</h1>
 	<br>
 		<div class="modify-box">	
+			<div class="text-center">
+				<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="<%=request.getContextPath() %>${photo.url}" 
+									width="180" height="180">
+			</div>
+			<div class="text-center">
+				<label class="input-file-button mb-4" for="imgSelect">프로필사진 변경</label>
+				<input id="imgSelect" name="photoUpload" type="file" onchange="preview()" style ="display:none;">
+			</div> 
+		
 			<div class="input-group">
 				<label class="input-label w-100">아이디</label>
 				<input class="form-control  form-control-lg  w-100 mb-3" type="text" name="userId" value="${data.userId}" readonly>
@@ -118,7 +103,9 @@
 
 
 
-function preview() { previewImg.src=URL.createObjectURL(event.target.files[0]); }
+function preview() { 
+	previewImg.src=URL.createObjectURL(event.target.files[0]); 
+}
 
 <!--이미지 업로드 미리보기-->
 function showImagePreview(e){
@@ -127,8 +114,9 @@ function showImagePreview(e){
 	 previewImg.src = imgUrl;	 
 }
 
+
 <!--이미지 업로드 Ajax-->
- function ajaxImageUpload(e){
+function ajaxImageUpload(e){
 	 var file  =  e.target.files[0];
 	 var fData = new FormData();
 	 fData.append("uploadImage", file, file.name);
@@ -145,13 +133,13 @@ function showImagePreview(e){
 	     }
 	  
 	 });
- } 
+} 
  
  <!--회원탈퇴 check-->
  <!--경로 수정할것.-->
  function unregister(){
 	 if(confirm("회원탈퇴를 진행하시겠습니까?")==true){
-		 location.href="/myhome/signout";
+		 location.href="/signout";
 	 }else{
 		 return false;
 	 }

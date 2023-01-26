@@ -59,4 +59,17 @@ public class PhotoUploadService {
 		}
 	}
 
+	
+	public boolean profileDelete(String userId) {
+		logger.info("profileDelete(userId={})", userId);
+		boolean result = dao.deleteProfilePhoto(userId);
+		return result;
+	}
+	
+	
+//	public void defaultProfile(String userId) {
+//		logger.info("defaultProfile(userId={})", userId);	
+//		dao.defaultProfile(userId);
+//	}
+	
 }

@@ -25,5 +25,18 @@ public class PhotoUploadDAO {
 		System.out.println(res);
 		return res == 1 ? true : false;
 	}
+	
+	
+	public boolean deleteProfilePhoto(String userId) {
+		logger.info("deleteProfilePhoto(userId={})", userId);
+		int res = session.delete("photoUploadMapper.deleteUserPhoto", userId);
+		return res == 1 ? true : false;
+	}
+	
+
+//	public void defaultProfile(String userId) {
+//		logger.info("deleteProfilePhoto(userId={})", userId);
+//		session.insert("photoUploadMapper.defaultProfile", userId);
+//	}
 
 }

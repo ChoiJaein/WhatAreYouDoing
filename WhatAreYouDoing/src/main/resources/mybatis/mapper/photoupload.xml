@@ -17,6 +17,24 @@
 		          , #{location}, #{url}
 		          , #{fileSize}, #{fileType})
 	</insert>
+	<delete id="deleteUserPhoto" >
+		DELETE FROM WYDUSERPHOTO
+		 WHERE USERID = #{userId}
+	</delete>
+	
+	
+<!-- 	<insert id="defaultProfile" parameterType="memberVo">
+		INSERT INTO 
+		WYDUSERPHOTO(USERID
+			  , USERPW
+			  , USERNAME
+			  , USEREMAIL)
+		VALUES(#{userId}
+			 , #{userPw}
+			 , #{userName}
+			 , #{userEmail})
+	</insert> -->
+	
 	
 <!-- 	<insert id="insertData" parameterType="photoUploadDto">
 		INSERT INTO PHOTOUPLOAD
