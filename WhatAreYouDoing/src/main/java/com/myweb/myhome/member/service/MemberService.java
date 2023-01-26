@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.myweb.myhome.member.model.MemberDAO;
 import com.myweb.myhome.member.service.MemberService;
 import com.myweb.myhome.member.vo.MemberVO;
+import com.myweb.myhome.upload.model.PhotoUploadDTO;
 
 @Service
 public class MemberService {
@@ -41,11 +42,23 @@ public class MemberService {
 		return result;
 	}
 
+	// 회원 정보 삭제
 	public boolean signout(MemberVO vo) {
 		logger.info("signout(vo={})", vo);
 		boolean result = dao.signout(vo);
 		return result;
 	}
+
+	// 
+	public PhotoUploadDTO getUserPhoto(String userId) {
+		logger.info("getUserPhoto(userId={})", userId);
+		PhotoUploadDTO data = dao.selectProfilePhoto(userId);
+		return data;
+	}
+
+
+
+	
 
 
 }

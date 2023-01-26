@@ -8,18 +8,25 @@
 		 WHERE USERID = #{userId}
 	       AND  USERPW = #{userPw}
  </select>
-<!--  아이디 찾기
- <select id="find_id" parameterType="accountDto" resultType="accountDto">
-		SELECT ACCOUNTID
-		FROM ACCOUNT 
-		WHERE EMAIL = #{email}
+<!--  아이디 찾기  -->
+ <select id="findId" resultType="loginDto">
+		SELECT USERID
+		FROM WYDUSER 
+		WHERE USEREMAIL = #{userEmail}
  </select>
 
- 비밀번호 찾기
+<!-- 비밀번호 변경 -->
+<update id="updatePw" >
+	UPDATE WYDUSER 
+	   SET USERPW = #{userPw} 
+	 WHERE USERID = #{userId}
+</update>
+
+<!--  비밀번호 찾기
   <select id="find_pw" parameterType="accountDto" resultType="accountDto">
 		SELECT * FROM ACCOUNT                              
 		WHERE ACCOUNTID = #{accountid} 
 		AND EMAIL = #{email}
- </select>  
- -->
+ </select>   -->
+ 
   </mapper>

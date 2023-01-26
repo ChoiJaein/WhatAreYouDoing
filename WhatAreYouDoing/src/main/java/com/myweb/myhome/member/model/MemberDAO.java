@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.myweb.myhome.member.model.MemberDAO;
 import com.myweb.myhome.member.vo.MemberVO;
+import com.myweb.myhome.upload.model.PhotoUploadDTO;
 
 @Repository
 public class MemberDAO {
@@ -44,11 +45,22 @@ public class MemberDAO {
 		return res == 1 ? true : false;
 	}
 
+	// 회원 정보 삭제
 	public boolean signout(MemberVO vo) {
 		logger.info("signout(vo={})", vo);
 		int res = sqlSession.delete("memberMapper.signout", vo);
 		return res == 1 ? true : false;
 	}
+	
+	// 프로필 사진 가져오기
+	public PhotoUploadDTO selectProfilePhoto(String userId) {
+		logger.info("selectProfilePhoto(userId={})", userId);
+		PhotoUploadDTO res = sqlSession.selectOne("memberMapper.selectUserPhoto", userId);
+		return res;
+	}
 
+
+
+	
 
 }

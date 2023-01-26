@@ -47,9 +47,6 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-//	@Autowired
-//	private InfoService photoService;
-	
 	@Autowired
 	private PhotoUploadService photoUploadService;
 	
@@ -95,6 +92,7 @@ public class MemberController {
 		int result = service.idOverlap(vo);
 		
 		if(result == 1) {
+//			photoUploadService.defaultProfile(userId);
 			ra.addFlashAttribute("result", "registerFalse");
 			return "login/register";
 		} else if(result == 0) {
@@ -139,28 +137,63 @@ public class MemberController {
 		String userId = loginDto.getUserId();
 		
 		MemberVO data = service.getAll(userId);
+		PhotoUploadDTO photo = service.getUserPhoto(userId);
 		
-		model.addAttribute("data", data);
-
+		String fileName = photo.getFileName();
+		System.out.println(fileName);
+		if(fileName == null) {
+			photo.setFileName("default_profile.png");
+			System.out.println(photo.getFileName());
+			model.addAttribute("data", data);
+			model.addAttribute("photo", photo);
+		} else {
+			model.addAttribute("data", data);
+			model.addAttribute("photo", photo);
+		}
 		return "login/userModify";
 	}
 	
 	
 	@PostMapping(value="/modify")
 	public String userModify(Model model, HttpServletRequest request
-			, @ModelAttribute MemberVO vo, @SessionAttribute("loginData") LoginDTO loginDto) {
+			, @ModelAttribute MemberVO vo
+			, @SessionAttribute("loginData") LoginDTO loginDto
+			, @RequestParam("photoUpload") MultipartFile[] files) {
 		logger.info("post userModify(Model={}, MemberVO={})", model, vo);
-		boolean result = service.userModify(vo);
+		String userId = vo.getUserId();
+		System.out.println(userId);
 		
-		String id = loginDto.getUserId();
+		for(MultipartFile file: files) {
+			String location = request.getServletContext().getRealPath("/resources/img/profile");
+			String url = "/static/img/profile";
+			PhotoUploadDTO fileData = new PhotoUploadDTO(userId, location, url);
+			logger.info("check fileData(fileData={})", fileData);
+			
+			try {
+				boolean del = photoUploadService.profileDelete(userId);
+				logger.info("check delete result(del={})", del);
+				int fileResult = photoUploadService.profileupload(file, fileData);
+				if(fileResult == -1) {
+					request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
+					System.out.println("업로드 수량 에러");
+					return "login/userModify";
+				}
+			} catch(Exception e) {
+				request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
+				System.out.println("예상치 못한 에러");
+				return "login/userModify";
+			}
+		}		
+		
+		boolean result = service.userModify(vo);
 		
 		if(result) {
 			model.addAttribute("msg", "수정이 완료되었습니다.");
-			model.addAttribute("url", "/myhome");
+			model.addAttribute("url", "/");
 			return "alert";
 		} else {
 			model.addAttribute("msg", "수정을 실패하였습니다. 다시 시도해주세요.");
-			model.addAttribute("url", "/myhome/modify");
+			model.addAttribute("url", "/modify");
 			return "alert";
 			}
 		
@@ -193,11 +226,11 @@ public class MemberController {
 		if(result) {
 			model.addAttribute("msg", "탈퇴가 완료되었습니다.");
 			session.invalidate();
-			model.addAttribute("url", "/myhome/login");
+			model.addAttribute("url", "/login");
 			return "alert";
 		} else {
 			model.addAttribute("msg", "탈퇴를 실패하였습니다. 다시 시도해주세요.");
-			model.addAttribute("url", "/myhome/signout");
+			model.addAttribute("url", "/signout");
 			return "alert";
 		}
 		

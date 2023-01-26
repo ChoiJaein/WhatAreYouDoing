@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.myweb.myhome.login.model.LoginDAO;
+import com.myweb.myhome.member.vo.MemberVO;
 
 @Repository
 public class LoginDAO {
@@ -18,8 +19,20 @@ public class LoginDAO {
 	
 	// 로그인
 	public LoginDTO selectLogin(LoginDTO data) {
-		logger.info("selectLogin({},{})",data);
+		logger.info("selectLogin(data={})",data);
 		LoginDTO result = session.selectOne("loginMapper.selectLogin", data);
+		return result;
+	}
+
+	public LoginDTO findId(String email) {
+		logger.info("findId(email={})", email);
+		LoginDTO result = session.selectOne("loginMapper.findId", email);
+		return result;
+	}
+
+	public int updatePw(MemberVO vo) {
+		logger.info("updatePw(vo={})", vo);
+		int result = session.update("loginMapper.updatePw", vo);
 		return result;
 	}
 

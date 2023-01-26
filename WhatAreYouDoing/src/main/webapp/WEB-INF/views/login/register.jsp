@@ -26,6 +26,12 @@
 	  color: white;
 	  cursor: pointer;
 	}
+	
+	.upload-box {
+		width: 180px;
+		height: 180px;
+		background-color: lightgray;
+	}
 		
 	</style>
 	
@@ -90,9 +96,14 @@
 			<div class="register-box">
 			
 				<div class="text-center">
-				<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="<%=request.getContextPath() %>${photo.url}" 
-										width="250" height="250">
+					<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="./static/img/profile/default_profile.png" 
+										width="180" height="180" >
 				</div>
+				<%-- <div class="text-center">
+					<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="<%=request.getContextPath() %>${photo.url}" 
+										width="180" height="180" >
+				</div> --%>
+			
 				<div class="text-center">
 					<label class="input-file-button mb-4" for="imgSelect">프로필사진 변경</label>
 					<input id="imgSelect" name="photoUpload" type="file" onchange="preview()" style ="display:none;">

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @WebFilter(
 		urlPatterns = {
 				"/", "/myhome", "/add",
-				"/postMod"
+				"/postMod", "/modify"
 		}
 )
 public class LoginFilter extends HttpFilter implements Filter {
