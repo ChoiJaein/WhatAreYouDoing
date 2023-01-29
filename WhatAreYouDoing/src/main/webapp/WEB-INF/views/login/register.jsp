@@ -21,7 +21,7 @@
 		
 	.input-file-button{
 	  padding: 4px 15px;
-	  background-color:#58636A;
+	  background-color:#7F8080;
 	  border-radius: 4px;
 	  color: white;
 	  cursor: pointer;
@@ -97,7 +97,7 @@
 			
 				<div class="text-center">
 					<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="./static/img/profile/default_profile.png" 
-										width="180" height="180" >
+										 style="width:180px; height:180px; margin-top: 28px; border-radius: 30%;">
 				</div>
 				<%-- <div class="text-center">
 					<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="<%=request.getContextPath() %>${photo.url}" 
@@ -137,7 +137,7 @@
 				</div>
 			</div>
 			
-			<br><br>
+			<br>
 			
 			<div class="mb-2 text-end">
 				<button class="btn btn-outline-secondary" type="submit" id="button_register" disabled>가입하기</button>

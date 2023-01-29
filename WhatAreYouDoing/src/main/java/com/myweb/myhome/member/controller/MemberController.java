@@ -138,18 +138,11 @@ public class MemberController {
 		
 		MemberVO data = service.getAll(userId);
 		PhotoUploadDTO photo = service.getUserPhoto(userId);
-		
-		String fileName = photo.getFileName();
-		System.out.println(fileName);
-		if(fileName == null) {
-			photo.setFileName("default_profile.png");
-			System.out.println(photo.getFileName());
+		logger.info("get getUserPhoto(photo={})", photo);
+
 			model.addAttribute("data", data);
 			model.addAttribute("photo", photo);
-		} else {
-			model.addAttribute("data", data);
-			model.addAttribute("photo", photo);
-		}
+			
 		return "login/userModify";
 	}
 	
@@ -168,6 +161,7 @@ public class MemberController {
 			String url = "/static/img/profile";
 			PhotoUploadDTO fileData = new PhotoUploadDTO(userId, location, url);
 			logger.info("check fileData(fileData={})", fileData);
+			
 			
 			try {
 				boolean del = photoUploadService.profileDelete(userId);

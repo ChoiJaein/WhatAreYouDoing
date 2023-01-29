@@ -30,10 +30,15 @@
 	
 	.input-file-button{
 	  padding: 4px 15px;
-	  background-color:#58636A;
+	  background-color:#7F8080;
 	  border-radius: 4px;
 	  color: white;
 	  cursor: pointer;
+	}
+	
+	.btn-box {
+	margin: auto;
+	width: 460px;
 	}
 </style>
 </head>
@@ -52,12 +57,12 @@
 
 
 	<br><br>
-	<h1>회원정보</h1>
+	<h1>회원 정보</h1>
 	<br>
 		<div class="modify-box">	
 			<div class="text-center">
 				<img id="previewImg" class="image-360 mt-5 mb-4" alt="profile" src="<%=request.getContextPath() %>${photo.url}" 
-									width="180" height="180">
+									style="width:180px; height:180px; margin-top: 28px; border-radius: 30%;">
 			</div>
 			<div class="text-center">
 				<label class="input-file-button mb-4" for="imgSelect">프로필사진 변경</label>
@@ -66,7 +71,7 @@
 		
 			<div class="input-group">
 				<label class="input-label w-100">아이디</label>
-				<input class="form-control  form-control-lg  w-100 mb-3" type="text" name="userId" value="${data.userId}" readonly>
+				<input class="form-control  form-control-lg  w-100 mb-3" type="text" name="userId" value="${data.userId}" style="background-color: white" readonly>
 			</div>
 			<div class="input-group">
 				<label class="input-label w-100">비밀번호</label>
@@ -82,14 +87,10 @@
 			</div>
 		</div>
 <br>
-	  <div class="text-end">
-	  </div>
-	  <div class="text-end col-sm-9 mb-5 mt-2">
-	    <button class="btn btn-danger" onclick="return unregister();">회원탈퇴</button>   
-	    <button class="btn btn-primary" type="submit">수 정</button>
+	 <div class="btn-box text-end">
+	    <button class="btn btn-outline-danger" onclick="return unregister();">탈 퇴</button>   
+	    <button class="btn btn-outline-secondary" type="submit">수 정</button>
 	  </div>			
-	  <div class="d-grid gap-3 d-md-flex justify-content-md-end">
-	  </div>
  </form>
  </section>
 

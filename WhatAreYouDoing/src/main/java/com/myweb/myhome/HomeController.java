@@ -24,15 +24,20 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myweb.myhome.common.util.Paging;
 import com.myweb.myhome.login.model.LoginDTO;
+import com.myweb.myhome.member.service.MemberService;
 import com.myweb.myhome.member.vo.MemberVO;
 import com.myweb.myhome.post.model.PostDTO;
 import com.myweb.myhome.post.service.PostService;
+import com.myweb.myhome.upload.model.PhotoUploadDTO;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
 	private PostService service;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -45,7 +50,12 @@ public class HomeController {
 		session = request.getSession();
 		loginDto = (LoginDTO) session.getAttribute("loginData");
 		String userId = loginDto.getUserId();
+		String userName = loginDto.getUserName();
 		logger.info("getList(userId={})", userId);
+		
+
+		PhotoUploadDTO photo = memberService.getUserPhoto(userId);
+		model.addAttribute("photo", photo);
 		
 		List datas = service.getAll(userId);
 		System.out.println(datas);
@@ -63,6 +73,7 @@ public class HomeController {
 		
 		model.addAttribute("datas", paging.getPageData());
 		model.addAttribute("pageData", paging);
+		model.addAttribute("userName", userName);
 		
 		return "home";
 	}
@@ -190,15 +201,19 @@ public class HomeController {
 		session = request.getSession();
 		loginDto = (LoginDTO) session.getAttribute("loginData");
 		String userId = loginDto.getUserId();
+		String userName = loginDto.getUserName();
 		map.put("userId", userId);
 		map.put("keyword", keyword);
 		logger.info("getUserId(userId={})", userId);
 		logger.info("getKeyword(keyword={})", keyword);
 		logger.info("getMap(map={})", map);
 		
-		
+		PhotoUploadDTO photo = memberService.getUserPhoto(userId);
+		model.addAttribute("photo", photo);
+
 		List datas = service.postSearch(map);
 		System.out.println(datas);
+		
 		
 		if(session.getAttribute("pageCount") == null) {
 			session.setAttribute("pageCount", 5);
@@ -212,6 +227,7 @@ public class HomeController {
 		
 		model.addAttribute("datas", paging.getPageData());
 		model.addAttribute("pageData", paging);
+		model.addAttribute("userName", userName);
 		
 		return "post/search";
 	}

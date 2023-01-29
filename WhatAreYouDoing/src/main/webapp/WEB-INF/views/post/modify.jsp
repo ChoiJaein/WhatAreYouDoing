@@ -11,6 +11,17 @@
 	<%@ include file="../module/head.jsp" %>
 	<c:url var="ckeditor" value="/static/ckeditor" />
 	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
+	
+	<style type="text/css">
+	.container {
+	 padding: 10px 20px 10px; 
+	 margin: 70px auto; 
+	 min-width: 900px;
+	 background-color:lightgray; 
+	 border-radius: 2%;"
+	}
+	</style>
+	
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
@@ -25,8 +36,11 @@
 	}
 </script>
 <body>
-	<header></header>
-	<section class="container">
+	<header>
+		<%@ include file="../module/navigation.jsp" %>
+	</header>
+	
+	<section class="container" style="width:900px;">
 		<div class="mt-3">
 			<c:url var="boardModifyUrl" value="/postMod" />		<!-- BoardController의 @GetMapping(value="/modify")에서 여기로 이동함.-->
 			<form action="${boardModifyUrl}" method="post">				<!--  그리고 수정요청 완료 후 저장(js까지 완료)시 다시 BoardController의 @PostMapping으로 이동.  -->
@@ -38,8 +52,8 @@
 					<textarea class="form-control" name="postContent" rows="8"
 						placeholder="내용을 입력하세요.">${data.postContent}</textarea>			<!-- 초기값 제공, 내용 수정 -->
 				</div>
-				<div class="mb-3 text-end">
-					<button class="btn btn-primary" type="button" onclick="formCheck(this.form);">저장</button>		<!-- formCheck라는 js를 이용해서 저장 -->
+				<div class="mb-2 text-end">
+					<button class="btn btn-outline-secondary" type="button" onclick="formCheck(this.form);">저 장</button>		<!-- formCheck라는 js를 이용해서 저장 -->
 				</div>
 			</form>
 		</div>
@@ -56,7 +70,7 @@
 						반드시 제목을 입력하세요.
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">확인</button>
+						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">확 인</button>
 					</div>
 				</div>
 			</div>

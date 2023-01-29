@@ -11,6 +11,13 @@
 	<%@ include file="../module/head.jsp" %>
 	
 	<style type="text/css">
+	
+	h1 {
+	text-align: center;
+	color: gray;
+	text-shadow: <50> <50> <50> <red>;
+	}
+	
 	.signout-box {
 	margin:auto;
 	background-color: rgba(250, 237, 197, 0.5);
@@ -18,6 +25,12 @@
 	padding:20px 30px;
 	width:460px;
 	}
+	
+	.btn-box {
+	margin: auto;
+	width: 460px;
+	}
+	
 </style>
 	
 	
@@ -58,6 +71,9 @@
 	<c:url var="signOut" value="/signout"/>
 	<form class="large-form" action="${signOut}" method="post" enctype="multipart/form-data">
 	
+	<br><br>
+	<h1>회원 탈퇴</h1>
+	
 		<%-- <div class="div-bc div-left">
 		
 			<div class="div-middle">
@@ -82,12 +98,13 @@
 		<div class="signout-box">	
 			<div class="input-group">
 				<label class="input-label w-100">아이디</label>
-				<input class="form-control  form-control-lg  w-100 mb-3" type="text" name="userId" value="${data.userId}" readonly>
+				<input class="form-control form-control-lg  w-100 mb-3" type="text" name="userId" 
+						value="${data.userId}" style="background-color: white" readonly>
 			</div>
 			<div class="input-group">
 				<label class="input-label w-100">비밀번호</label>
-				<input class="form-control  form-control-lg w-auto mb-3" 
-				type="password" id="id_userPw" name="userPw" value="${data.userPw}" readonly>
+				<input class="form-control  form-control-lg w-auto mb-3" type="password" 
+						id="id_userPw" name="userPw" value="${data.userPw}" style="background-color: white" readonly>
 			</div>
 			<div class="input-group">
 				<label class="input-label w-100">비밀번호 확인</label>
@@ -97,11 +114,11 @@
 			</div>
 		</div>
 	
-		
-	<div>
-		<button class="btn btn-primary button-right" onclick="location.href='/myhome'">취소</button>
-		<button class="btn btn-primary button-right" id="signout-btn" onclick="userSignOut(this.form);" disabled>회원탈퇴</button>
-		<label class="button-right">탈퇴하실 경우 복구하실 수 없습니다.</label>
+	<br>
+	<div class="btn-box text-end">
+		<p style="color:#474848">탈퇴하실 경우 복구하실 수 없습니다.</p>
+		<button class="btn btn-primary button-right" onclick="location.href='/'">취 소</button>
+		<button class="btn btn-primary button-right" id="signout-btn" onclick="userSignOut(this.form);" disabled>탈 퇴</button>
 	</div>
 	
 	</form>
@@ -113,21 +130,14 @@
 
 
 function userSignOut(form){
-	if(confirm("탈퇴하시겠습니까?") == true){
-		
-		if(${data.userPw} === document.getElementById('id_userPw').value){ 
-			
-	    alert("탈퇴되었습니다.");
+	if(confirm("탈퇴하실 경우 복구하실 수 없습니다. 탈퇴하시겠습니까?") == true){
+		alert("탈퇴되었습니다.");
 		form.submit();
-		location.href="/myhome/login"; 
-			
-		} else {
-			alert("비밀번호가 일치하지 않습니다.");
-		}
-	}else{
+		location.href="/login"; 
+	} else {
 		return false;
 	}
- }
+}
 
 </script>
 

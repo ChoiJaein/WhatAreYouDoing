@@ -10,27 +10,56 @@
 	<title>${data.postTitle}
 	</title>
 	<%@ include file="../module/head.jsp" %>
+	
+	<style type="text/css">
+	.container {
+	 padding: 10px 20px 10px; 
+	 margin: 70px auto; 
+	 min-width: 900px;
+	 background-color: lightgray; 
+	 border-radius: 0.5%;"
+	}
+	
+	h2 {
+	color: #474848;
+	}
+	
+	p{
+	color: #474848;
+	}
+	
+	</style>
+	
 </head>
 
 <body>
-	<header></header>
-	<section class="container">
-		<div class="mt-3">
-			<div class="mb-1 border-bottom border-2 border-secondary">
-				<h1>${data.postTitle}</h1>
+	<header>
+		<%@ include file="../module/navigation.jsp" %>
+	</header>
+	
+	<section class="container" style="width:900px;">
+		<div>
+			<div style="margin-top: 10px; min-widht: 800px; min-height: 43px; background-color:white; border-radius: 2%;">
+				<h2>${data.postTitle}</h2>
 			</div>
-			<div class="mb-3">
+			<div class="mb-1" style="text-align:right; margin-top:20px; color: #FFF9E6;">
 				<fmt:formatDate value="${data.postDate}" var="postDate" dateStyle="long" />
-				<label class="pe-3 text-secondary text-opacity-75">${postDate}</label>
+				<label class="pe-3">${postDate}</label>
 			</div>
-			<div class="mb-1 border-bottom border-2 border-secondary">
+			<div class="mb-1" style="min-height: 600px; padding:1px 20px; background-color: white; border-radius: 1%;">
 				<p>${data.postContent}</p>
 			</div>
-			<div class="mb-1 text-end">
-				<c:url var="boardUrl" value="/" />		<!-- c:url로 contextPath를 자동으로 포함한 url 생성해줌. contextPath에 /board 라는 값을 포함해서 url 생성한 후 boardUrl 변수에 담아서 사용 -->
-				<button class="btn btn-primary" type="button" onclick="location.href='${boardUrl}'">목록</button>
-					<button class="btn btn-success" type="button" onclick="location.href='${boardUrl}postMod?postId=${data.postId}'">수정</button>	<!-- 여기서 boardUrl 사용. 여기서 data.id는 상세 글 번호. 여기서 이동하는 /modify에 대한 메소드는 BoardController에 있음. -->
-					<button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#removeModal">삭제</button>			<!-- 이 버튼 누르면 removeModal(130번째 줄)이 실행됨 -->
+			
+			
+			<c:url var="boardUrl" value="/" />		<!-- c:url로 contextPath를 자동으로 포함한 url 생성해줌. contextPath에 /board 라는 값을 포함해서 url 생성한 후 boardUrl 변수에 담아서 사용 -->
+			<div class="row">
+			<div class="col-6 mt-2 text-start ">
+				<button class="btn btn-outline-secondary" type="button" onclick="location.href='${boardUrl}'">목 록</button>
+			</div>
+			<div class="col-6 mt-2 text-end">
+				<button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#removeModal">삭 제</button>			<!-- 이 버튼 누르면 removeModal(130번째 줄)이 실행됨 -->
+				<button class="btn btn-outline-secondary" type="button" onclick="location.href='${boardUrl}postMod?postId=${data.postId}'">수 정</button>	<!-- 여기서 boardUrl 사용. 여기서 data.id는 상세 글 번호. 여기서 이동하는 /modify에 대한 메소드는 BoardController에 있음. -->
+			</div>
 			</div>
 		</div>
 
@@ -47,7 +76,7 @@
 						이 게시물을 삭제하시겠습니까?
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" onclick="deleteBoard(${data.postId})">확인</button>	<!-- 확인 누르면 deleteBoard메소드(220번째 줄)가 실행됨. 인자로 게시글 번호(data.id)전달. -->
+						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" onclick="deleteBoard(${data.postId})">확 인</button>	<!-- 확인 누르면 deleteBoard메소드(220번째 줄)가 실행됨. 인자로 게시글 번호(data.id)전달. -->
 					</div>
 				</div>
 			</div>

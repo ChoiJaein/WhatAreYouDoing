@@ -49,7 +49,7 @@ public class MemberService {
 		return result;
 	}
 
-	// 
+	// 프로필사진 가져오기
 	public PhotoUploadDTO getUserPhoto(String userId) {
 		logger.info("getUserPhoto(userId={})", userId);
 		PhotoUploadDTO data = dao.selectProfilePhoto(userId);

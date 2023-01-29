@@ -11,7 +11,18 @@
 	<%@ include file="../module/head.jsp" %>
 	<c:url var="ckeditor" value="/static/ckeditor" />
 	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
+	
+	<style type="text/css">
+	.container {
+	 padding: 10px 20px 10px; 
+	 margin: 70px auto; 
+	 min-width: 900px;
+	 background-color:lightgray; 
+	 border-radius: 2%;"
+	}
+	</style>
 </head>
+
 <script type="text/javascript">
 	function formCheck(form) {
 		if(form.postTitle.value === undefined || form.postTitle.value.trim() === "") {			/* title값(title.value)이 비어있으면(title.value.trim() === "") */
@@ -24,9 +35,13 @@
 		form.submit();			/* 저장요청할 수 있게 전송(submit)해라. 이때 전송은 "/board/modify"로 하고 메소드는 "post"로 함. -> BoardController의 @PostMapping으로 이동*/
 	}
 </script>
+
 <body>
-	<header></header>
-	<section class="container">
+	<header>
+		<%@ include file="../module/navigation.jsp" %>
+	</header>
+	
+	<section class="container" style="width:900px;">
 		<div class="mt-3">
 			<c:url var="boardAddUrl" value="/add" />
 			<form action="${boardAddUrl}" method="post">
@@ -42,7 +57,7 @@
 				</div>
 				<div class="mb-3 text-end">
 <!-- 					<button class="btn btn-primary" type="button" onclick="formCheck(this.form);">저장</button>-->					
-						<button class="btn btn-primary" type="submit">저장</button>
+						<button class="btn btn-outline-secondary" type="submit">저 장</button>
 				</div>
 			</form>
 		</div>
@@ -59,7 +74,7 @@
 						반드시 제목을 입력하세요.
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">확인</button>
+						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">확 인</button>
 					</div>
 				</div>
 			</div>

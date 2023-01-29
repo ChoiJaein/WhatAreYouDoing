@@ -17,6 +17,20 @@
 		          , #{location}, #{url}
 		          , #{fileSize}, #{fileType})
 	</insert>
+	
+	<!-- <update id="insertProfileData" parameterType="photoUploadDto">
+		UPDATE WYDUSERPHOTO
+	       SET FILEID = PROFILE_SEQ.NEXTVAL
+		     	  , USERID = #{userId}
+		          , UUIDNAME = #{uuidName}
+		          , FILENAME = #{fileName}
+		          , LOCATION = #{location}
+		          , URL = #{url}
+		          , FILESIZE = #{fileSize}
+		          , FILETYPE = #{fileType})
+		 WHERE USERID = #{userId}
+	</update> -->
+	
 	<delete id="deleteUserPhoto" >
 		DELETE FROM WYDUSERPHOTO
 		 WHERE USERID = #{userId}
@@ -36,35 +50,4 @@
 	</insert> -->
 	
 	
-<!-- 	<insert id="insertData" parameterType="photoUploadDto">
-		INSERT INTO PHOTOUPLOAD
-		     VALUES(PHOTOUPLOAD_SEQ.NEXTVAL
-		     	  , #{bId} 	   , #{accId}
-		          , #{uuidName}, #{fileName}
-		          , #{location}, #{url}
-		          , #{fileSize}, #{fileType})
-	</insert>
-	
-	<select id="selectBoardDatas" resultType="photoUploadDto">
-		SELECT *
-		  FROM PHOTOUPLOAD
-		 WHERE BID = #{bId}
-	</select>
-	
-	<select id="selectProfileData" resultType="photoUploadDto">
-		SELECT *
-		  FROM PHOTOUPLOAD
-		 WHERE ACCOUNTID = #{accId}
-	</select>
-	
-	<update id="updateFileData" parameterType="photoUploadDto">
-		UPDATE PHOTOUPLOAD
-		   SET UUIDNAME = #{uuidName}   
-           , FILENAME = #{fileName}
-		   , FILESIZE = #{fileSize}
-		   , FILETYPE = #{fileType}
-		 WHERE BID = #{bId}
-	</update>
-	
-	 -->
 </mapper>

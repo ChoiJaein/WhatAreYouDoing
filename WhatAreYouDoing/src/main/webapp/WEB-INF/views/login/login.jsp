@@ -11,6 +11,7 @@
    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <script src="http://code.jquery.com/jquery-latest.js"></script>
+   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
    
 	<title>로그인</title>
 	<%@ include file="../module/head.jsp" %>  
@@ -47,6 +48,26 @@
 		margin-right: 0.5rem;
 		width: 200px;
 		}
+		
+		.hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 12px;
+        margin: 8px 0px;
+      }
+      .hr-sect::before,
+      .hr-sect::after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(0, 0, 0, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px 16px;
+      }
+		
 	</style>
 </head>
 
@@ -86,28 +107,36 @@
 		<div class="d-grid gap-2 mx-auto">
 			<button class="btn btn-outline-secondary" type="submit">로그인</button>
 		</div>
+		
+		<br>
+		<div class="hr-sect">또는</div>
+		
+		<div class="text-center">
+			<button type ="button" class = "btn" onclick="location.href='${urlNaver}'"><img width="200px;" src='./static/img/logoNaver5.png'></button>
+		</div>
+		
 		</form>
 		
 		<br>
 		<br>
 		<br>
 		
-	        <div align= 'center' style="display: inline-flex;">
-	         <!-- 카카오 로그인 -->
+	        <!-- <div align= 'center' style="display: inline-flex;">
+	         카카오 로그인
 		        <button class="kakao-button" onclick="kakaoLogin();">
 		        <a href="javascript:void(0)">
 		            <span><img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="210"" alt="카카오계정 로그인" style="height: 50px;"/></span>
 		        </a>
 		  	   </button>
 		  	   
-		       <!-- 
+		       
 		       <button onclick="kakaoLogout();">
 		        <a href="javascript:void(0)">
 		            <span>카카오 로그아웃</span>
 		        </a>
-		  	   </button>
-		        -->
-		  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+		  	   </button> -->
+		  	   
+		 <!--  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 		  <script type="text/javascript">
 		  Kakao.init('d0ef6b76e117277cb82e82d03cff8759'); 
 		  console.log(Kakao.isInitialized()); 
@@ -147,9 +176,9 @@
 		        Kakao.Auth.setAccessToken(undefined)
 		      }
 		    }  
-            </script>
+            </script> -->
 			<!-- 네이버 로그인 -->
-			<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>		  
+			<!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>		  
 		    <div id ="naverIdLogin" style="margin-left: 1rem"></div>
 		    </div>
 		   <script type="text/javascript">
@@ -163,7 +192,7 @@
 		         );
 		   
 		     naverLogin.init();
-           </script>
+           </script> -->
 	  </section>
     </body>
 </html>

@@ -17,7 +17,6 @@
 		width:360px;
 		height:450px;
 		margin: 0 auto;
-		background-color: skyblue;
 		float:left;
 	}
 	
@@ -28,11 +27,9 @@
  	.table-size {
 	width:600px;
 	height:450px;
-		background-color: pink;
-		float:left;
+	float:left;
 	} 
-	</style>
-	<style>
+
 	.page-link {
   color: #000; 
   background-color: #fff;
@@ -53,8 +50,24 @@
   background-color: #fafafa; 
   border-color: #ccc;
 }
+
+	.userName-box {
+	width:180px;
+	height:180px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:20px;
+	}
 	
-	</style>
+	.profile-box {
+	margin:140px auto 0;
+	background-color: rgba(250, 237, 197, 0.5);
+	border-radius: 10px;
+	width:220px;
+	height: 330px;
+	}
+	
+</style>
 	
 	
 </head>
@@ -64,9 +77,24 @@
 	</header>
 	<br><br><br>
 	
-	<section class="container" style="background-color: orange">
+	<section class="container">
 	<div style="width:1250px;">
-	<aside>ASIDE</aside>
+	
+	<aside>
+	<div class="profile-box">
+		<div class="text-center">
+			<img id="previewImg" class="image-360 mt-10 mb-10" alt="profile" src="<%=request.getContextPath() %>${photo.url}" 
+										style="width:180px; height:180px; margin-top: 28px; border-radius: 30%;">
+		</div>
+		<div class="userName-box">
+			<input type="text" name="userName" value="${userName}" style="border: none; background:transparent; text-align:center;" readonly>
+			<div class="col text-center">
+				<button class="btn btn-outline-secondary" type="button" style="margin-top:10px;" onclick="location.href='${boardUrl}modify'">내 정보</button>
+			</div>
+		</div>
+	</div>
+	</aside>
+	
 	<div class="table-size">
 		<div class="mb-1">
 		<!-- 이부분 나중에 변수값 등등(boardUrl) 수정해야 함 -->
@@ -74,8 +102,8 @@
 			<form action="${boardUrl}" method="get">
 			<br><br><br><br><br><br>
 				<div class="row g-1">
-					<div class="col-10">
-						<button class="btn btn-secondary" type="button" onclick="location.href='${boardUrl}add'">추가</button>
+					<div class="col">
+						<button class="btn btn-secondary" type="button" onclick="location.href='${boardUrl}add'">작성</button>
 					</div>
 					
 					<%-- <div class="col-2">
@@ -122,14 +150,14 @@
 		</div>
 		
 		
-		<div class="input-group" style="margin-left: 340px; width:300px;">
-			<input type="text" id="keywordInput" name="keyword" class="form-control" value="${data.keyword}">
+		<div class="input-group" style="margin-left: 500px; width:300px;">
+			<input type="text" id="keywordInput" name="keyword" class="form-control" value="${keyword}">
 			<button class="btn btn-outline-secondary" type="submit" id="searchBtn">검색</button>
 		</div>
 
 		
 		<nav>
-			<div>
+			<div style="margin-top:10px;">
 				<ul class="pagination justify-content-center">
 					<c:if test="${pageData.hasPrevPage()}">
 						<li class="page-item">
