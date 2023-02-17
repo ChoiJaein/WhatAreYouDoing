@@ -24,12 +24,12 @@
 
 
 ### Process
-####<백엔드>
+#### <백엔드>
 Language : Java
 Framework : Spring, MyBatis
 Server : Apache Tomcat 9.0
 Database : Oracle 18c
 
-####<프론트엔드>
+#### <프론트엔드>
 Web : HTML5, CSS, JavaScript, JSP, AJAX, jQuery
 API : Bootstrap5, Naver 로그인
